@@ -1,0 +1,21 @@
+<div *ngIf="diagramId != currentDiagramId" class="left-top-controls">
+    <button class="btn btn-light btn-sm" title="Go to main layer" (click)="toMainLayer()">
+        <span>Back</span>
+    </button>
+</div>
+
+<div class="right-top-controls">
+    <button class="btn btn-light btn-sm" title="Reset Zoom" (click)="zoomReset()">
+        <span>Reset Zoom</span>
+    </button>
+
+    <button class="btn btn-light btn-sm" title="Zoom In" (click)="zoomIn()">
+        <span>Zoom In</span>
+    </button>
+
+    <button class="btn btn-light btn-sm" title="Zoom Out" (click)="zoomOut()">
+        <span>Zoom Out</span>
+    </button>
+</div>
+<div #diagramContainer>
+</div>

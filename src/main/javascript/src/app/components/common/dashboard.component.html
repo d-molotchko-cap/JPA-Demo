@@ -1,0 +1,86 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-8">
+            <h3 style="padding-top: 1rem; padding-left: 1rem;">Dashboard
+                <button class="btn btn-secondary btn-sm float-right" (click)="refresh()">Refresh</button>
+            </h3>
+
+            <div>
+                <div class="dropdown" dropdown>
+                    <button class="btn btn-secondary dropdown-toggle" dropdownToggle type="button" id="dropdownMenuButton" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Launch
+                    </button>
+                    <div *dropdownMenu class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 100%; margin:1em;">
+                <ngx-datatable class="bootstrap" [rows]="instances" [columnMode]="'force'" [limit]="10" [reorderable]="reorderable" [headerHeight]="40"
+                    [footerHeight]="40" [limit]="5" [loadingIndicator]="isLoading" [rowHeight]="50">
+
+                    <ngx-datatable-column name="Subject">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            <a class="btn btn-link" routerLink="{{prepareLink(row)}}">{{value.displayName}}</a>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Instance">
+                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                            <button class="btn btn-link" (click)="showProcessInstanceImage(row)">{{value.processInstanceName}}</button>
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Assignee"></ngx-datatable-column>
+                    <ngx-datatable-column name="Received">
+                        <ng-template ngx-datatable-cell-template let-$index="rowIndex" let-$value="value" let-$row="row">
+                            {{$value | date: short}}
+                        </ng-template>
+                    </ngx-datatable-column>
+                    <ngx-datatable-column name="Due">
+                        <ng-template ngx-datatable-cell-template let-$index="rowIndex" let-$value="value" let-$row="row">
+                            {{$value | date: short}}
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="At Risk" [width]="220">
+                        <ng-template let-value="value" ngx-datatable-cell-template>
+                            <span [ngStyle]="{'color': value.isAtRisk ? '#ff2e00'  : 'initial'}">{{value.atRiskTime | date: short}}</span>
+                        </ng-template>
+                    </ngx-datatable-column>
+
+                    <ngx-datatable-column name="Priority">
+                        <ng-template let-value="value" ngx-datatable-cell-template>
+                            <span>
+                                <span [ngStyle]="{ position: 'initial', color: value.priorityName == 'High' ? '#ff2e00' : value.priorityName == 'Low' ? '#ffbf00' : '#57d500' }">&#x25cf;</span>
+                                {{value.priorityName}}
+                            </span>
+                        </ng-template>
+                    </ngx-datatable-column>
+                </ngx-datatable>
+            </div>
+        </div>
+        <div class="col-4">
+            <div class="row justify-content-center">
+                <h3>Tasks by priority</h3>
+            </div>
+            <nvd3 [options]='priorityOptions' [data]='priorityData'></nvd3>
+            <div class="row justify-content-center">
+                <h3>Tasks by state</h3>
+            </div>
+            <nvd3 [options]='taskstateOptions' [data]='taskstateData'></nvd3>
+        </div>
+    </div>
+    <div class="row">
+        <tabset class="col">
+            <tab heading="Turnover Rate">
+                <nvd3 [options]='turnoverOptions' [data]='turnoverData'></nvd3>
+            </tab>
+            <tab heading="Burndown">
+                <nvd3 [options]='burndownOptions' [data]='burndownData'></nvd3>
+            </tab>
+            <tab heading="Performance">
+                <nvd3 [options]='performanceOptions' [data]='performanceData'></nvd3>
+            </tab>
+        </tabset>        
+    </div>
+</div>

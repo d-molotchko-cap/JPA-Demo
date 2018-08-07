@@ -1,0 +1,45 @@
+<div class="default-header" [ngStyle]="{'height': '130px', 'background-color': backgroundColor}">
+    <img src="assets/company-logo.png" title="{{companyName}}" style="height: 100px;">
+    <div class="company-name">
+        <a href="/">{{companyName}}</a>
+    </div>
+    <div *ngIf="principal" style="position: absolute; right: 0; top: 90px;">Welcome, <button class="btn btn-link" style="padding-left: 0;" (click)="onLogout($event)" title="Logout">{{principal}}</button>
+    </div>
+    <div style="float:right;">
+        Translation: 
+        <select #langSelect (change)="translate.use(langSelect.value)">
+            <option *ngFor="let lang of translate.getLangs()" [value]="lang" [selected]="lang === translate.currentLang">{{ lang }}</option>
+        </select>
+    </div>
+  <nav>
+    <div class="btn-group" dropdown style="position: absolute;top: 40px;right: 150px;">
+        <button dropdownToggle type="button" class="btn btn-success dropdown-toggle">
+            Choose a page <span class="caret"></span>
+        </button>
+        <ul *dropdownMenu class="dropdown-menu dropdown-menu-right" role="menu">
+            <li role="menuitem"><a class="dropdown-item" routerLink="project/form_1">Project Form_1</a></li>
+        </ul>
+    </div>
+  </nav>
+</div>
+
+<div>
+    <span defaultOverlayTarget></span>
+    <router-outlet></router-outlet>
+</div>    
+
+<footer [ngStyle]="{'backgroundColor': backgroundColor}">
+    <div id="page-footer">
+        <div>{{companyWWW}}</div>
+        <div>{{companyAddress}}</div>
+        <div>Email:
+            <a href="mailto:{{companyEmail}}">{{companyEmail}}</a>
+            <a></a>
+        </div>
+        <div>
+            <span>Phone: {{companyPhone}}</span>
+            <span>, </span>
+            <span>Fax: {{companyFax}}</span>
+        </div>
+    </div>
+</footer>

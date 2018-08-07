@@ -1,0 +1,277 @@
+<form class="was-validated container" style="padding-top:1rem;padding-bottom:1rem;" #form_1Form="ngForm" *ngIf="data; else loader">
+<div class="vertical-layout row"
+     [hidden]="!(true)"
+>
+
+  	<div class="layout-item col-md-12">
+  		<div class="vertical-layout row"
+     [hidden]="!(true)"
+>
+
+<div class="card" style="width:100%">
+  <div class="card-header">
+    Pet<span style="float:right;font-size:0.6em;cursor: pointer;text-decoration: underline;padding-left: 1rem;padding-top: 0.3rem;" (click)="hidepet=!hidepet"><i class="fa fa-lg" [ngClass]="{'fa-chevron-left': hidepet, 'fa-chevron-down': !hidepet}"></i>
+</span>
+  </div>
+  <div *ngIf="!hidepet" class="card-body row">
+  	<div class="layout-item col-md-12">
+  		<div class="horizontal-layout row"
+     [hidden]="!(true)"
+>
+
+  	<div class="layout-item col-md">
+  		<!-- text -->
+<input class="form-control form-control"
+       id="pet-id"
+       type="number"
+       name="pet.id"
+       title="Id"
+       placeholder="Id"
+       [(ngModel)]="data.pet.id"
+       [hidden]="!(true)"
+       maxlength="15"
+       #inputpetid>
+
+<div *ngIf="inputpetid.errors && (inputpetid.dirty || inputpetid.touched)" class="invalid-feedback">
+  <div [hidden]="!inputpetid.errors.maxlength">
+    Too many characters
+  </div>
+</div>
+
+  	</div>
+  	<div class="layout-item col-md">
+  		<div class="horizontal-layout row"
+     [hidden]="!(true)"
+>
+
+</div>
+
+  	</div>
+</div>
+
+  	</div>
+  	<div class="layout-item col-md-12">
+  		<div class="vertical-layout row"
+     [hidden]="!(true)"
+>
+
+<div class="card" style="width:100%">
+  <div class="card-header">
+    Category<span style="float:right;font-size:0.6em;cursor: pointer;text-decoration: underline;padding-left: 1rem;padding-top: 0.3rem;" (click)="hidecategory=!hidecategory"><i class="fa fa-lg" [ngClass]="{'fa-chevron-left': hidecategory, 'fa-chevron-down': !hidecategory}"></i>
+</span>
+  </div>
+  <div *ngIf="!hidecategory" class="card-body row">
+  	<div class="layout-item col-md-12">
+  		<div class="horizontal-layout row"
+     [hidden]="!(true)"
+>
+
+  	<div class="layout-item col-md">
+  		<!-- text -->
+<input class="form-control form-control"
+       id="pet-category-id"
+       type="number"
+       name="pet.category.id"
+       title="Id"
+       placeholder="Id"
+       [(ngModel)]="data.pet.category.id"
+       [hidden]="!(true)"
+       maxlength="15"
+       #inputpetcategoryid>
+
+<div *ngIf="inputpetcategoryid.errors && (inputpetcategoryid.dirty || inputpetcategoryid.touched)" class="invalid-feedback">
+  <div [hidden]="!inputpetcategoryid.errors.maxlength">
+    Too many characters
+  </div>
+</div>
+
+  	</div>
+  	<div class="layout-item col-md">
+  		<!-- text -->
+<input class="form-control form-control"
+       id="pet-category-name"
+       type="text"
+       name="pet.category.name"
+       title="Name"
+       placeholder="Name"
+       [(ngModel)]="data.pet.category.name"
+       [hidden]="!(true)"
+       #inputpetcategoryname>
+
+
+  	</div>
+</div>
+
+  	</div>
+  </div>
+</div>
+</div>
+
+  	</div>
+  	<div class="layout-item col-md-12">
+  		<div class="horizontal-layout row"
+     [hidden]="!(true)"
+>
+
+  	<div class="layout-item col-md">
+  		<!-- text -->
+<input class="form-control form-control"
+       id="pet-name"
+       type="text"
+       name="pet.name"
+       title="Name"
+       placeholder="Name"
+       [(ngModel)]="data.pet.name"
+       [hidden]="!(true)"
+       #inputpetname>
+
+
+  	</div>
+  	<div class="layout-item col-md">
+  		<div class="vertical-layout row"
+     [hidden]="!(true)"
+>
+
+<div class="card" style="width:100%">
+  <div class="card-header">
+    Photo_Urls<span style="float:right;font-size:0.6em;cursor: pointer;text-decoration: underline;padding-left: 1rem;padding-top: 0.3rem;" (click)="hidephoto_Urls=!hidephoto_Urls"><i class="fa fa-lg" [ngClass]="{'fa-chevron-left': hidephoto_Urls, 'fa-chevron-down': !hidephoto_Urls}"></i>
+</span>
+  </div>
+  <div *ngIf="!hidephoto_Urls" class="card-body row">
+  	<div class="layout-item col-md-12">
+  		
+  	</div>
+  </div>
+</div>
+</div>
+
+  	</div>
+</div>
+
+  	</div>
+  	<div class="layout-item col-md-12">
+  		<div class="vertical-layout row"
+     [hidden]="!(true)"
+>
+
+<div class="card" style="width:100%">
+  <div class="card-header">
+    Tags<span style="float:right;font-size:0.6em;cursor: pointer;text-decoration: underline;padding-left: 1rem;padding-top: 0.3rem;" (click)="hidetags=!hidetags"><i class="fa fa-lg" [ngClass]="{'fa-chevron-left': hidetags, 'fa-chevron-down': !hidetags}"></i>
+</span>
+  </div>
+  <div *ngIf="!hidetags" class="card-body row">
+  	<div class="layout-item col-md-12">
+  		
+<ngx-datatable 
+    *ngIf="true"
+	class="bootstrap"
+    [columnMode]="'force'"
+    [scrollbarH]="true"
+	[footerHeight]="50"
+    [rowHeight]="'auto'"
+    [rows]="data.pet.tags"
+    #pettagsTable>
+    <ngx-datatable-column name="" prop="kuku123kaka">
+        <ng-template ngx-datatable-header-template>
+            <button type="button" class="btn btn-link btn-sm" (click)="addNewRowToTablePettags()">Add new row</button>
+        </ng-template>
+ 		<ng-template ngx-datatable-cell-template let-$index="rowIndex" let-$value="value" let-$row="row">
+            <button type="button" class="btn btn-outline-primary btn-sm" (click)="editRowInTablePettags($index, $row)">
+                <i *ngIf="!editingStateOfTablePettags[$index]" class="fa fa-pencil" aria-hidden="true"></i>
+                <i *ngIf="editingStateOfTablePettags[$index]"class="fa fa-save"></i>
+            </button>
+            <button type="button" *ngIf="!editingStateOfTablePettags[$index]" class="btn btn-outline-danger btn-sm" (click)="removeRowFromTablePettags($index)"> <i class="fa fa-trash" aria-hidden="true"></i></button>
+        </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column
+      name="Id"
+      prop="id">
+ 		<ng-template ngx-datatable-cell-template let-$index="rowIndex" let-$value="value" let-$row="row">
+	         <span *ngIf="!editingStateOfTablePettags[$index]">{{$value}}</span>
+	         <div *ngIf="editingStateOfTablePettags[$index]" style="margin-left:0.5em; margin-right:0.5em;">
+	             <!-- text -->
+<input class="form-control "
+       id="idId"
+       type="number"
+       name="$value"
+       [value]="$value"
+       [hidden]="!(true)"
+    (change) = "updateValueInTablePettags($event, 'id', $index)"
+       #inputidId>
+
+
+	         </div>
+ 		</ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column
+      name="Name"
+      prop="name">
+ 		<ng-template ngx-datatable-cell-template let-$index="rowIndex" let-$value="value" let-$row="row">
+	         <span *ngIf="!editingStateOfTablePettags[$index]">{{$value}}</span>
+	         <div *ngIf="editingStateOfTablePettags[$index]" style="margin-left:0.5em; margin-right:0.5em;">
+	             <!-- text -->
+<input class="form-control "
+       id="idName"
+       type="text"
+       name="$value"
+       [value]="$value"
+       [hidden]="!(true)"
+    (change) = "updateValueInTablePettags($event, 'name', $index)"
+       #inputidName>
+
+
+	         </div>
+ 		</ng-template>
+    </ngx-datatable-column>
+</ngx-datatable>
+
+  	</div>
+  </div>
+</div>
+</div>
+
+  	</div>
+  	<div class="layout-item col-md-12">
+  		<div class="horizontal-layout row"
+     [hidden]="!(true)"
+>
+
+  	<div class="layout-item col-md">
+  		<!-- text -->
+<input class="form-control form-control"
+       id="pet-status"
+       type="text"
+       name="pet.status"
+       title="Status"
+       placeholder="Status"
+       [(ngModel)]="data.pet.status"
+       [hidden]="!(true)"
+       #inputpetstatus>
+
+
+  	</div>
+  	<div class="layout-item col-md">
+  		<div class="horizontal-layout row"
+     [hidden]="!(true)"
+>
+
+</div>
+
+  	</div>
+</div>
+
+  	</div>
+  </div>
+</div>
+</div>
+
+  	</div>
+</div>
+
+</form>
+
+<ng-template #loading>
+	<div class="row align-items-center justify-content-center">
+		<div class="loader text-center"></div>
+	</div>			
+</ng-template>

@@ -1,0 +1,24 @@
+.app-table-toolbar {
+  width: 100%;
+  height: 50px;
+}
+
+.app-table-row-action {
+  padding: 0 2px;
+}
+
+.app-table-row-control {
+  width: 95% !important;
+}
+
+.app-table-row-control-last {
+  width: 90% !important;
+}
+
+.app-danger {
+  color: red;
+}
+
+.app-default {
+  color: green;
+}

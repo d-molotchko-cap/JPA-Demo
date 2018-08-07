@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.example</groupId>
+	<artifactId>JPA_Demo</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>war</packaging>
+
+	<name>JPA_Demo</name>
+	<description>Spring Boot project</description>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.0.0.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<app.context>/</app.context>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+ 		<maven.compiler.source>1.8</maven.compiler.source>
+    	<maven.compiler.target>1.8</maven.compiler.target>
+		<script.extension />
+	</properties>
+
+	<repositories>
+	   <repository>     
+	     <id>alfresco-public</id>      
+	     <url>https://artifacts.alfresco.com/nexus/content/groups/public</url>   
+	   </repository>  
+	</repositories>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-websocket</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<exclusions>
+				<exclusion>
+					<groupId>com.vaadin.external.google</groupId>
+					<artifactId>android-json</artifactId>
+				</exclusion>
+			</exclusions>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.dataformat</groupId>
+			<artifactId>jackson-dataformat-xml</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
+
+		<dependency>
+		    <groupId>org.apache.httpcomponents</groupId>
+		    <artifactId>httpmime</artifactId>
+		</dependency>
+
+		<dependency>
+		    <groupId>com.google.guava</groupId>
+		    <artifactId>guava</artifactId>
+		    <version>25.1-jre</version>
+		</dependency>
+        
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20160212</version><!--$NO-MVN-MAN-VER$ -->
+		</dependency>
+		<dependency>
+			<groupId>com.netflix.conductor</groupId>
+			<artifactId>conductor-common</artifactId>
+			<version>1.8.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.netflix.conductor</groupId>
+			<artifactId>conductor-client</artifactId>
+			<version>1.8.1</version>
+		</dependency>
+    </dependencies>
+
+	<build>
+		<resources>
+			<resource>
+				<directory>${project.basedir}/src/main/resources</directory>
+				<includes>
+					<include>application.properties</include>
+				</includes>
+				<filtering>true</filtering>
+			</resource>
+			<resource>
+				<directory>${project.basedir}/src/main/javascript/build</directory>
+				<targetPath>static</targetPath>
+				<filtering>false</filtering>
+			</resource>
+		</resources>
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.eclipse.m2e</groupId>
+					<artifactId>lifecycle-mapping</artifactId>
+					<version>1.0.0</version>
+					<configuration>
+						<lifecycleMappingMetadata>
+							<pluginExecutions>
+								<pluginExecution>
+									<pluginExecutionFilter>
+										<groupId>org.codehaus.mojo</groupId>
+										<artifactId>exec-maven-plugin</artifactId>
+										<versionRange>[1.5.0,)</versionRange>
+										<goals>
+											<goal>exec</goal>
+										</goals>
+									</pluginExecutionFilter>
+									<action>
+										<execute></execute>
+									</action>
+								</pluginExecution>
+							</pluginExecutions>
+						</lifecycleMappingMetadata>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.6.0</version>
+				<executions>
+					<execution>
+						<id>yarn install</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>initialize</phase>
+						<configuration>
+							<executable>yarn${script.extension}</executable>
+							<arguments>
+								<argument>install</argument>
+							</arguments>
+							<workingDirectory>${project.basedir}/src/main/javascript/</workingDirectory>
+						</configuration>
+					</execution>
+					<execution>
+						<id>yarn build  --source-map=false</id>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<phase>generate-resources</phase>
+						<configuration>
+							<executable>yarn${script.extension}</executable>
+							<arguments>
+								<argument>build</argument>
+								<argument>--base-href</argument>
+								<argument>${app.context}</argument>
+							</arguments>
+							<workingDirectory>${project.basedir}/src/main/javascript/</workingDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+		<profile>
+			<id>platform-windows</id>
+			<activation>
+				<os>
+					<family>windows</family>
+				</os>
+			</activation>
+			<properties>
+				<script.extension>.cmd</script.extension>
+			</properties>
+		</profile>
+	</profiles>
+</project>

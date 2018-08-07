@@ -1,0 +1,10 @@
+<h5>{{label}}</h5>
+<div *ngIf="file">
+    <button class="btn btn-outline-primary btn-sm" title="Upload & replace file" (click)="editFile($event)"><i class="fa fa-pencil"></i></button>
+    <button class="btn btn-outline-danger btn-sm"  title="Remove file" (click)="removeFile($event)"><i class="fa fa-trash"></i></button>
+    <a href="" (click)="downloadFile($event)">{{file.name}} ({{formatSize(file.size)}})</a>
+</div>
+<div *ngIf="!file">
+    <button class="btn btn-outline-primary btn-sm" title="Add new file" (click)="addFile($event)"><i class="fa fa-plus"></i></button>
+    No file.
+</div>

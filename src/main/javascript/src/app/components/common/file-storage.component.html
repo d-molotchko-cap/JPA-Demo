@@ -1,0 +1,33 @@
+<div class="card" style="width:100%">
+    <div class="card-header">
+        Documents
+        <span style="float:right;font-size:0.6em;cursor: pointer;text-decoration: underline;padding-left: 1rem;padding-top: 0.3rem;"
+            (click)="show=!show">
+            <i class="fa fa-lg" [ngClass]="{'fa-chevron-left': show, 'fa-chevron-down': !show}"></i>
+        </span>
+    </div>
+    
+    <div *ngIf="!show" class="card-body row">
+		<button class="btn btn-link" (click)="refresh()">Refresh</button>
+	    <table class="table table-sm">
+	    	<thead>
+	    		<tr>
+	    			<td>#</td>
+	    			<td>Document</td>
+	    			<td></td>
+	    		</tr>
+	    	</thead>
+	    	<tbody>
+	    		<tr *ngFor="let doc of documents; let i = index">
+	    			<td>{{i+1}}.</td>
+	    			<td>
+                        <a class="btn btn-link" target="_blank" href="file-storage/{{piid}}/{{doc.uuid}}/{{doc.name}}">{{doc.name}}</a>
+	    			</td>
+	    			<td>
+                        <a class="btn btn-default btn-danger" (click)="remove(doc.uuid)">Remove</a>
+	    			</td>
+	    		</tr>
+	    	</tbody>
+	    </table>
+    </div>
+</div>

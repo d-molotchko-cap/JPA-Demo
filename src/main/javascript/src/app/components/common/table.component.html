@@ -1,0 +1,33 @@
+<div class="app-table-toolbar" *ngIf="rows.length == 0">
+	<button type="button" class="btn btn-secondary btn-sm" data-toggle="tooltip" data-placement="top" title="{{'Insert new row' | translate}}" (click)="addRow()" style="float:right;">{{'Add' | translate}}</button>
+</div>
+
+<ngx-datatable class="bootstrap" [rows]="rows" [columnMode]="'standard'" [limit]="10" [reorderable]="reorderable" [headerHeight]="40"
+[footerHeight]="40"
+[limit]="5"
+[scrollbarH]="true"
+[loadingIndicator]="isLoading"
+[rowHeight]="54">
+		<ngx-datatable-column name="{{'Actions' | translate}}" prop="none" [width]="50">
+			<ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+				<div>
+					<button class="btn btn-link btn-sm app-table-row-action app-danger" data-toggle="tooltip" data-placement="top" title="{{'Remove row' | translate}}" (click)="removeRow(rowIndex)">
+                            <i class="fa fa-remove"></i>
+					</button>
+					<button class="btn btn-link btn-sm app-table-row-action app-default" data-toggle="tooltip" data-placement="top" title="{{'Insert row' | translate}}" (click)="addRow(rowIndex+1)">
+                        <i class="fa fa-plus"></i>
+					</button>
+				</div>
+			</ng-template>
+		</ngx-datatable-column>
+		<ngx-datatable-column *ngFor="let col of columns; let last=last;" [name]="col.title | translate" [prop]="col.data" [width]="200">
+			<ng-template ngx-datatable-cell-template let-rowIndex="rowIndex" let-value="value" let-row="row">
+				<input style="width:100%"
+					class="form-control form-control-sm {{last ? 'app-table-row-control-last' : 'app-table-row-control'}}"
+					(blur)="updateValue($event, col.data, rowIndex)"
+					type="text"
+					[value]="value"
+				/>
+          </ng-template>		
+	</ngx-datatable-column>
+</ngx-datatable>

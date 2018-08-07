@@ -1,0 +1,40 @@
+<div style="width: 100%; margin:1em;">
+    <h5>{{label}}</h5>
+    <ngx-datatable class="bootstrap" [rows]="rows" [columnMode]="'standard'" [limit]="10" [reorderable]="true" [headerHeight]="40"
+        [footerHeight]="40" [limit]="10" [loadingIndicator]="isLoading" [rowHeight]="55">
+
+        <ngx-datatable-column name="Name">
+            <ng-template let-column="column" ngx-datatable-header-template>
+                <button class="btn btn-link btn-sm" title="Refresh the table" (click)="refresh()"><i class="fa fa-sync">Refresh</i></button>
+            </ng-template>
+            <ng-template let-row="row" ngx-datatable-cell-template>
+                <button class="btn btn-outline-primary btn-sm" title="Add new file" (click)="addFile($event)"><i class="fa fa-plus"></i></button>
+                <button class="btn btn-outline-primary btn-sm" title="Upload & replace file" (click)="editFile($event, row)"><i class="fa fa-pencil"></i></button>
+                <button class="btn btn-outline-danger btn-sm"  title="Remove file" (click)="removeFile($event, row)"><i class="fa fa-trash"></i></button>
+            </ng-template>
+        </ngx-datatable-column>
+
+        <ngx-datatable-column name="Name" [width]="300">
+            <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                <a href="" (click)="downloadFile($event, row)">{{value}}</a>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Size">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+                <span>{{formatSize(value)}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Created">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+                <span>{{formatDate(value)}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Created By"></ngx-datatable-column>
+        <ngx-datatable-column name="Modified">
+            <ng-template let-value="value" ngx-datatable-cell-template>
+                <span>{{formatDate(value)}}</span>
+            </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Modified By"></ngx-datatable-column>
+    </ngx-datatable>
+</div>
